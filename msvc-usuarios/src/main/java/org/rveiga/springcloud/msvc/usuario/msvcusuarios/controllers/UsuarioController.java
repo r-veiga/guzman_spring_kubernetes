@@ -1,6 +1,5 @@
 package org.rveiga.springcloud.msvc.usuario.msvcusuarios.controllers;
 
-import feign.Response;
 import org.rveiga.springcloud.msvc.usuario.msvcusuarios.models.entity.Usuario;
 import org.rveiga.springcloud.msvc.usuario.msvcusuarios.services.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -19,8 +18,8 @@ public class UsuarioController {
 		this.service = service;
 	}
 
-	@GetMapping("/{id}")
-	public List<Usuario> listar (@PathVariable Long id) {
+	@GetMapping
+	public List<Usuario> listar () {
 		return service.listar();
 	}
 
