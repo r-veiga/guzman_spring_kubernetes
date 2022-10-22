@@ -145,6 +145,16 @@ public ResponseEntity<?> eliminar(@PathVariable Long id) {
     return ResponseEntity.notFound().build();
 }
 ```
+(2) Troubleshoot en la URL de conexión a MySQL
 
+Andrés explica que suele haber problemas al no indicar dos parámetros en la cadena de conexión a MySQL en el fichero `application.properties`. <br>
+Esto ocurría en versiones previas del driver de MySQL, y mejor tenerlo en cuenta por si acaso surge.
 
+1. `serverTimeZone`, se necesita indicar una zona horaria
+2. `allowPublicKeyRetrieval`, es una opción de cliente para que el connector de MySql permita al cliente solicitar automáticamente la clave pública al servidor. <br> 
+Su valor por defecto es `false`, por eso hay que activarlo. <br> 
+Idealmente habría que añadir `useSSL=false` con propósitos de desarrollo/testing.
 
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3307/msvc_usuarios?serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=false
+```
