@@ -4,3 +4,5 @@
 Voy haciendo las prácticas sugeridas a medida que sigo el curso. 
 
 1. Sobre cómo [preparar inicialmente el proyecto](01_starting_project.md)
+2. Sobre cómo [crear el proyecto de microservicio msvc-usuarios](02_msvc-usuarios.md)
+3. Sobre cómo [crear y configurar mis contenedores Docker](03_docker.md)
