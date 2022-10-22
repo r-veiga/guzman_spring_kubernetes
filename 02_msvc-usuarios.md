@@ -18,7 +18,7 @@ Puerto de entrada a mi microservicio
 
 ## Puntos a destacar 
 
-### (1) Creación del primer endpoint en el controller
+### (1) El endpoint devuelve status (200, 201, 404...)
 
 Se devuelve una `@ResponseEntity<?>` 
 
@@ -32,3 +32,46 @@ public ResponseEntity<?> listar(@PathVariable Long id) {
     return ResponseEntity.notFound().build(); // Genera la respuesta 404
 }
 ```
+También puedo indicar cuál será el **ResponseStatus** devuelto con una anotación al método. 
+
+```java
+@PostMapping
+@ResponseStatus(HttpStatus.CREATED) // Devuelve el status 201 "Creado"
+public Usuario crear(@RequestBody Usuario usuario) {
+    return service.guardar(usuario);
+}
+```
+Si sobre el caso anterior en vez de la anotación prefiriese usar un **ResponseEntity**
+
+```java
+@PostMapping
+// @ResponseStatus(HttpStatus.CREATED) 
+public ResponseEntity<Usuario> crear(@RequestBody Usuario usuario) {
+	return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(service.guardar(usuario));
+}
+```
+Uso el PUT para modificar datos del usuario.
+Ojo que este PUT recibe un @RequestBody y un @PathVariable. 
+
+```java 
+@PutMapping("/{id}")
+public ResponseEntity<?> editar(@RequestBody Usuario modificacion, @PathVariable Long id) {
+    final Optional<Usuario> userAlmacenado = service.porId(id);
+    if(userAlmacenado.isPresent()) {
+        final Usuario userModificado = userAlmacenado.get();
+        userModificado.setNombre(modificacion.getNombre());
+        userModificado.setEmail(modificacion.getEmail());
+        userModificado.setPassword(modificacion.getPassword());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(service.guardar(userModificado));
+    }
+    return ResponseEntity.notFound().build(); // Genera la respuesta 404
+}
+```
+
+
+
+
