@@ -54,4 +54,14 @@ public class UsuarioController {
 		return ResponseEntity.notFound().build(); // Genera la respuesta 404
 	}
 
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> eliminar(@PathVariable Long id) {
+		Optional<Usuario> o = service.porId(id);
+		if(o.isPresent()) {
+			service.eliminar(id);
+			return ResponseEntity.noContent().build();  // status 204 - "Sin contenido"
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 }
