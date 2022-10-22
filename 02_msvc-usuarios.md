@@ -2,7 +2,7 @@
 
 👉 [Volver a Readme.MD](Readme.MD)
 
-## Valores de configuración en application.properties 
+## Valores de configuración en application.properties
 
 ```properties
 spring.application.name=msvc-usuarios

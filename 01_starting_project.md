@@ -72,7 +72,7 @@ De este modo creo la relación padre-hijo. Y como el padre tiene el **spring-boo
         <version>1.0-SNAPSHOT</version>
     </parent>
 ```
-####(2.2) "curso-kubernetes" :: pom.xml :: Listar sus módulos
+####(2.3) "curso-kubernetes" :: pom.xml :: Listar sus módulos
 
 Debo indicar la lista de módulos que compone el proyecto padre. 
 
