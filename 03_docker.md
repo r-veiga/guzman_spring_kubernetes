@@ -26,13 +26,13 @@ docker logs mi-mysql8
 
 Salto al **vídeo 73 del curso** para ver cómo crear un contenedor de PostgreSQL para que no me lo tenga que descargar.
 
-Accedo al MySql de mi contenedor por el puerto 5433, es el puerto externo que ofrezco.
+Accedo al PostgreSQL de mi contenedor por el puerto 5532, es el puerto externo que ofrezco.
 Asimismo determino dos variables de entorno.
-1. genera una base de datos *msvc_usuarios* (vacía)
+1. genera una base de datos *msvc_cursos* (vacía)
 2. la contraseña del usuario *postgres* será "sasa"
 ```bash
 docker pull postgres:14-alpine
-docker run -d -p 5433:5432 --name mi-postgres14 --network spring 
+docker run -d -p 5532:5432 --name mi-postgres14 --network spring 
        -e POSTGRES_PASSWORD=sasa
        -e POSTGRES_DB=msvc_cursos
        postgres:14-alpine
