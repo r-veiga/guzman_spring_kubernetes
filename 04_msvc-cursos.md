@@ -45,3 +45,8 @@ Son dos módulos, uno por cada proyecto de microservicios: "msvc-usuarios" y "ms
         <module>msvc-cursos</module>
     </modules>
 ```
+
+## Escribiendo el código de la aplicación 
+
+No voy a extenderme, es similar a lo visto en el microservicio previo para usuarios. 
+Mejor mira directamente el código. 
