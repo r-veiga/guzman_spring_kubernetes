@@ -89,3 +89,4 @@ Puedo intentar arrancar el proyecto "msvc-usuarios" desde su clase `@SpringBootA
 pero como no hemos configurado el MySql (recuerda que hemos metido su dependencia), el arranque fallará. 
 
 
+[Siguiente](02_msvc-usuarios.md)
