@@ -7,3 +7,4 @@ Voy haciendo las prácticas sugeridas a medida que sigo el curso.
 2. Sobre cómo [crear el proyecto de microservicio msvc-usuarios](02_msvc-usuarios.md)
 3. Sobre cómo [crear y configurar mis contenedores Docker](03_docker.md)
 4. Sobre cómo [crear el proyecto de microservicio msvc-cursos](04_msvc-cursos.md)
+5. Sobre cómo [validar los campos de entidad](05_validation.md)

@@ -18,7 +18,10 @@ Así que lo primero es añadir la dependencia en el **pom.xml** de `msvc-usuario
     <artifactId>spring-boot-starter-validation</artifactId>
 </dependency>
 ```
-Ahora ya puedo usar las anotaciones de validación en campos de la entidad. 
+
+## Asignar validaciones a campos de entidad 
+Ya tengo añadida la dependencia a `spring-boot-starter-validation` en el fichero `pom.xml`.
+Entonces ahora puedo **asignar anotaciones de validación** a campos de la entidad. 
 ```java
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Email;
@@ -31,35 +34,28 @@ import javax.validation.constraints.Email;
     @Column(unique=true)
     private String email;
 ```
-Pero de este modo, indicando sólo `@NotEmpty`, se devuelve el mensaje de error por defecto, no está personalizado. <br>
-Además, se mostrará en el idioma correspondiente a la zona horaria que tengo definida (según el browser). <br>
-Podría personalizarlo implementando multilenguaje con `message.properties`. <br> 
-Pero en este ejemplo voy simplemente a usar el parámetro `message`. 
 
-Puedo probar los lenguajes enviando en Postman la cabecera "*Accept-Language*" con valores como en-US, en-UK, fr-CH, ru...
-```java
-  @NotEmpty(message = "Le nom ne peut pas être laissé en blanc.")
-  private String nombre;
-```
+## Ejecución de las validaciones
+¿Y en qué punto se ejecutan estas validaciones? <br/>
 
-¿Y en qué punto se ejecutan las validaciones aquí definidas? <br>
-Emplearé la anotación `@Valid` y el objeto `BindingResult` en los endpoints del controller. 
+👉 **en los endpoints** donde emplee la anotación `@Valid` y el objeto `BindingResult` ❗❗
 
 ```java
 import org.springframework.validation.BindingResult;
 import javax.validation.Valid;
 
     @PostMapping
-    public ResponseEntity<?> crear(
-        @Valid @RequestBody Usuario usuario, 
-        BindingResult result) 
-    {
+    public ResponseEntity<?> crear(@Valid @RequestBody Usuario usuario,BindingResult result) {
+        
         if (result.hasErrors()) {
             Map<String, String> errores = new HashMap<>();
-            result.getFieldErrors().forEach(err -> {
-                errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
+            result.getFieldErrors().forEach( err -> {
+                errores.put(
+                        err.getField(), 
+                        "El campo " + err.getField() + " " + err.getDefaultMessage()
+                );
             });
-        return ResponseEntity.badRequest().body(errores);
+            return ResponseEntity.badRequest().body(errores);
         }
         
         return ResponseEntity
@@ -67,6 +63,19 @@ import javax.validation.Valid;
                 .body(service.guardar(usuario));
     }
 ```
-Presta atención a cómo almacenan los errores de validación en un mapa a devolver como respuesta. 
+Presta atención a cómo se están almacenando los errores de validación en el mapa que se devolverá como cuerpo de la respuesta.
+
+
+## Personalización de los mensajes de error
+Pero de este modo, indicando sólo `@NotEmpty`, se devuelve el mensaje de error por defecto, no está personalizado. <br>
+Además, se mostrará en el idioma correspondiente a la zona horaria que tengo definida (según el browser). <br>
+Podría personalizarlo implementando multilenguaje con `message.properties`. <br> 
+Puedo probar los lenguajes enviando en Postman la cabecera "*Accept-Language*" con valores como en-US, en-UK, fr-CH, ru...
+
+En este ejemplo voy simplemente a forzar el mensaje de error con el parámetro `message`. 
+```java
+  @NotEmpty(message = "Le nom ne peut pas être laissé en blanc.")
+  private String nombre;
+```
 
 

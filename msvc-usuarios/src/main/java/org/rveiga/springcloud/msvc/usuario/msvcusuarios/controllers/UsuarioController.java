@@ -42,9 +42,7 @@ public class UsuarioController {
 		if (result.hasErrors()) {
 			return montarErroresDeValidacion(result);
 		}
-		return ResponseEntity
-							.status(HttpStatus.CREATED)
-							.body(service.guardar(usuario));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
 	}
 
 	@PutMapping("/{id}")

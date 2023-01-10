@@ -18,9 +18,9 @@ docker pull mysql:8
 docker run -d -p 3307:3306 --name mi-mysql8 --network spring 
        -e MYSQL_ROOT_PASSWORD=sasa
        -e MYSQL_DATABASE=msvc_usuarios
-       mysql:8
+       guzman-mysql:8
 docker ps
-docker logs mi-mysql8
+docker logs guzman-mysql
 ```
 ## Dockerizo  PostgreSQL
 
@@ -35,7 +35,7 @@ docker pull postgres:14-alpine
 docker run -d -p 5532:5432 --name mi-postgres14 --network spring 
        -e POSTGRES_PASSWORD=sasa
        -e POSTGRES_DB=msvc_cursos
-       postgres:14-alpine
+       guzman-postgres:14-alpine
 docker ps
-docker logs mi-postgres14
+docker logs guzman-postgres
 ```

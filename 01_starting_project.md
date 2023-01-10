@@ -40,7 +40,7 @@ Creará una carpeta "msvc-usuarios" dentro de la carpeta raíz del proyecto padr
 ### (2) arreglar *pom.xml* para relación padre/hijo
 Los **pom.xml** de los dos proyectos deberán modificarse para establecer la relación padre/hijo. 
 
-####(2.1) "curso-kubernetes" :: pom.xml :: Introducir bloque &lt;parent&gt;
+#### (2.1) "curso-kubernetes" :: pom.xml :: Introducir bloque &lt;parent&gt;
 
 Introduzco un bloque &lt;parent&gt; antes de las coordenadas Maven de "curso-kubernetes". 
 
@@ -60,7 +60,7 @@ Además hereda la gestión de dependencias de *spring-boot-dependencies* que es 
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 ```
-####(2.2) "msvc-usuarios" :: pom.xml :: Reemplazar bloque &lt;parent&gt;
+#### (2.2) "msvc-usuarios" :: pom.xml :: Reemplazar bloque &lt;parent&gt;
 
 Reemplazo el contenido del bloque &lt;parent&gt; por las coordenadas de "curso-kubernetes" como su padre. <br> 
 De este modo creo la relación padre-hijo. Y como el padre tiene el **spring-boot-starter-parent**, entonces también se aplica en el hijo. 
@@ -72,7 +72,7 @@ De este modo creo la relación padre-hijo. Y como el padre tiene el **spring-boo
         <version>1.0-SNAPSHOT</version>
     </parent>
 ```
-####(2.3) "curso-kubernetes" :: pom.xml :: Listar sus módulos
+#### (2.3) "curso-kubernetes" :: pom.xml :: Listar sus módulos
 
 Debo indicar la lista de módulos que compone el proyecto padre. 
 
