@@ -85,12 +85,12 @@ Asimismo determino dos variables de entorno.
 2. la contraseña del usuario *postgres* será "sasa"
 ```bash
 docker pull postgres:14-alpine
-docker run -d -p 5532:5432 --name mi-postgres14 
+docker run -d -p 5532:5432 --name guzman-postgres14 
        -e POSTGRES_PASSWORD=sasa
        -e POSTGRES_DB=msvc_cursos
        postgres:14-alpine
 docker ps
-docker logs mi-postgres14
+docker logs guzman-postgres14
 ```
 
 Así tengo un PostgreSQL disponible por el puerto 5532. <br>

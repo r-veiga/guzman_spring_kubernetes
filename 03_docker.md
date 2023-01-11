@@ -15,12 +15,12 @@ Asimismo determino dos variables de entorno.
 2. la contraseña del usuario *root* será "sasa"
 ```bash
 docker pull mysql:8
-docker run -d -p 3307:3306 --name mi-mysql8 --network spring 
+docker run -d -p 3307:3306 --name guzman-mysql8 --network spring 
        -e MYSQL_ROOT_PASSWORD=sasa
        -e MYSQL_DATABASE=msvc_usuarios
-       guzman-mysql:8
+       mysql:8
 docker ps
-docker logs guzman-mysql
+docker logs guzman-mysql8
 ```
 ## Dockerizo  PostgreSQL
 
@@ -32,10 +32,10 @@ Asimismo determino dos variables de entorno.
 2. la contraseña del usuario *postgres* será "sasa"
 ```bash
 docker pull postgres:14-alpine
-docker run -d -p 5532:5432 --name mi-postgres14 --network spring 
+docker run -d -p 5532:5432 --name guzman-postgres14 --network spring 
        -e POSTGRES_PASSWORD=sasa
        -e POSTGRES_DB=msvc_cursos
-       guzman-postgres:14-alpine
+       postgres:14-alpine
 docker ps
-docker logs guzman-postgres
+docker logs guzman-postgres14
 ```

@@ -66,12 +66,12 @@ Asimismo determino dos variables de entorno.
 2. la contraseña del usuario *root* será "sasa"
 ```bash
 docker pull mysql:8
-docker run -d -p 3307:3306 --name mi-mysql8 
+docker run -d -p 3307:3306 --name guzman-mysql8 
        -e MYSQL_ROOT_PASSWORD=sasa
        -e MYSQL_DATABASE=msvc_usuarios
        mysql:8
 docker ps
-docker logs mi-mysql8
+docker logs guzman-mysql8
 ```
 
 Así tengo un MySql disponible por el puerto 3307. <br>
