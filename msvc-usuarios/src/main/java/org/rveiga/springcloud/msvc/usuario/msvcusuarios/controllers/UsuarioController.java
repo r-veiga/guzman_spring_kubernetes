@@ -8,10 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class UsuarioController {
@@ -42,22 +39,36 @@ public class UsuarioController {
 		if (result.hasErrors()) {
 			return montarErroresDeValidacion(result);
 		}
+
+		if (service.porEmail(usuario.getEmail()).isPresent()) {
+			String msg = "☢❗ No puedo dar de alta un usuario con un email que ya existe en el sistema.";
+			return ResponseEntity.badRequest().body(Collections.singletonMap("error-1", msg));
+		}
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> editar(@Valid @RequestBody Usuario modificacion, BindingResult result, @PathVariable Long id) {
+	public ResponseEntity<?> editar(@Valid @RequestBody Usuario cambios, BindingResult result, @PathVariable Long id) {
 		if (result.hasErrors()) {
 			return montarErroresDeValidacion(result);
 		}
 
-		final Optional<Usuario> userAlmacenado = service.porId(id);
-		if(userAlmacenado.isPresent()) {
-			final Usuario userModificado = userAlmacenado.get();
-			userModificado.setNombre(modificacion.getNombre());
-			userModificado.setEmail(modificacion.getEmail());
-			userModificado.setPassword(modificacion.getPassword());
-			return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(userModificado));
+		String emailPorVerificar = cambios.getEmail();
+		Optional<Usuario> userConEmail = service.porEmail(emailPorVerificar);
+		if (userConEmail.isPresent() && userConEmail.get().getId() != id) {
+			String msg = "☢❗ El email ya existe en el sistema asignado a otro usuario. No puedo gestionar esta modificación.";
+			return ResponseEntity.badRequest().body(Collections.singletonMap("error-1", msg));
+		}
+
+		final Optional<Usuario> usuario = service.porId(id);
+		if(usuario.isPresent()) {
+			final Usuario modificacion = usuario.get();
+			modificacion.setId(id);
+			modificacion.setNombre(cambios.getNombre());
+			modificacion.setEmail(cambios.getEmail());
+			modificacion.setPassword(cambios.getPassword());
+			return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(modificacion));
 		}
 		return ResponseEntity.notFound().build(); // Genera la respuesta 404
 	}
