@@ -1,6 +1,6 @@
 package org.rveiga.springcloud.msvc.cursos.services;
 
-import org.rveiga.springcloud.msvc.cursos.entity.Curso;
+import org.rveiga.springcloud.msvc.cursos.models.entity.Curso;
 import org.rveiga.springcloud.msvc.cursos.repositories.CursoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -39,3 +39,40 @@ docker run -d -p 5532:5432 --name guzman-postgres14 --network spring
 docker ps
 docker logs guzman-postgres14
 ```
+
+## Uso de pgAdmin con Docker 
+
+La herramienta de gestión de PostgreSQL es pgAdmin. <br/>
+Me será muy útil para ver qué tablas se crean y qué datos se almacenan. 
+
+En vez de tener una instalación local en mi host, voy a arrancar un contenedor Docker. <br/>
+Aquí daré las instrucciones para configurarlo y usarlo. 
+Para más detalle, consulta en [DockerHub](https://hub.docker.com/r/dpage/pgadmin4/).
+
+Ejecutaré un contenedor simple de **pgAdmin**, accesible por el puerto 8080. 
+Le indico las dos variables de entorno obligatorias, que necesitaré para hacer login en la web.
+
+```powershell
+docker run -d
+    --name guzman-pgadmin
+    -p 5050:80 
+    -e "PGADMIN_DEFAULT_EMAIL=zinedine@rmad.com" 
+    -e "PGADMIN_DEFAULT_PASSWORD=zinedine" 
+    dpage/pgadmin4
+```
+```
+http://localhost:5050
+```
+La nueva conexión a PostgreSQL a configurar tendrá estos valores, que también puedo extraer del `application.properties`.
+
+| Name                 | guzman-postgres14 |
+|----------------------|-------------------|
+| Host name/address    | 192.168.1.150     | 
+| Port                 | 5532              |
+| Maintenance database | msvc_cursos       | 
+| Username             | postgres          | 
+
+El valor de IP de **Host name/address** lo obtengo inspeccionando el contenedor de la BBDD PostgreSQL.
+```powershell
+docker inspet guzman-postgres14
+```

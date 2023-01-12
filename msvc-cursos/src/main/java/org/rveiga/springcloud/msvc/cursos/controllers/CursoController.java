@@ -1,6 +1,6 @@
 package org.rveiga.springcloud.msvc.cursos.controllers;
 
-import org.rveiga.springcloud.msvc.cursos.entity.Curso;
+import org.rveiga.springcloud.msvc.cursos.models.entity.Curso;
 import org.rveiga.springcloud.msvc.cursos.services.CursoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-public class CursoController {
+public class 	CursoController {
 
 	private final CursoService service;
 
