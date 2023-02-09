@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.*;
 public interface UsuarioClientRest {
     @GetMapping("/{id}") Usuario detalle(@PathVariable Long id);
     @PostMapping         Usuario crear(@RequestBody Usuario usuario);
-
+    @GetMapping("/usuarios") List<Usuario> usuarios(@RequestParam Iterable<Long> ids);
 }
 ```
 
@@ -140,11 +140,17 @@ Siguen todos un esquema similar:
 ## Habilitar endpoints que invoquen estas llamadas
 
 Implementación de endpoints en el Controller de Cursos con la finalidad de 
-1. añadir usuario al curso
-2. crear un nuevo usuario y añadirlo al curso
-2. eliminar usuario del curso
+1. devolver los datos completos de los usuarios requeridos por ID
+2. añadir usuario al curso
+3. crear un nuevo usuario y añadirlo al curso
+4. eliminar usuario del curso
 
 ```java
+	@GetMapping("/usuarios")
+	public ResponseEntity<?> obtenerAlumnos(@RequestParam List<Long> ids) {
+		return ResponseEntity.ok(service.listarPorIds(ids));
+	}
+
 	@PutMapping("/asignar-usuario/{cursoId}")
 	public ResponseEntity<?> asignarUsuario(@RequestBody Usuario usuario, @PathVariable Long cursoId) {
 		Optional<Usuario> asignado = null;

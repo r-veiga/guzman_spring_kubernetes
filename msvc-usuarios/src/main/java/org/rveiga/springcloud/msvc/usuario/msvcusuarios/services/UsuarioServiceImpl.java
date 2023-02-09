@@ -34,11 +34,19 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
+	@Transactional
 	public void eliminar(Long id) {
 		repository.deleteById(id);
 	}
 
 	@Override
+	@Transactional
+	public List<Usuario> listarPorIds(Iterable<Long> ids) {
+		return (List<Usuario>) repository.findAllById(ids);
+	}
+
+	@Override
+	@Transactional
 	public Optional<Usuario> porEmail(String email) {
 		return repository.findByEmail(email);
 	}

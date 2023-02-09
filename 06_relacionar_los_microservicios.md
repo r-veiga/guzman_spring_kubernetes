@@ -15,6 +15,9 @@ Algunas acciones en la aplicación que requieren una conexión entre los microse
 | Desasignar usuario |  |
 | Obtener usuarios de un curso |  |
 
+Y además se modifica la acción de ver los datos de un solo curso por ID. <br/>
+Cuando se consulte un único curso, veré también TODOS los datos de los usuarios asignados a ese curso.
+
 ## Crear entidad intermedia `Curso-Usuario` 
 Quiero relacionar los IDs de Curso y Usuario. 
 

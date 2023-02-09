@@ -11,5 +11,6 @@ public interface UsuarioService {
 	Optional<Usuario> porId(Long id);
 	Usuario guardar(Usuario usuario);
 	void eliminar(Long id);
+	List<Usuario> listarPorIds(Iterable<Long> ids);
 	Optional<Usuario> porEmail(String email);
 }
