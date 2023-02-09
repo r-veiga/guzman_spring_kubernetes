@@ -49,7 +49,7 @@ En vez de tener una instalación local en mi host, voy a arrancar un contenedor 
 Aquí daré las instrucciones para configurarlo y usarlo. 
 Para más detalle, consulta en [DockerHub](https://hub.docker.com/r/dpage/pgadmin4/).
 
-Ejecutaré un contenedor simple de **pgAdmin**, accesible por el puerto 8080. 
+Ejecutaré un contenedor simple de **pgAdmin**, accesible por el puerto 5050. 
 Le indico las dos variables de entorno obligatorias, que necesitaré para hacer login en la web.
 
 ```powershell
@@ -63,7 +63,8 @@ docker run -d
 ```
 http://localhost:5050
 ```
-La nueva conexión a PostgreSQL a configurar tendrá estos valores, que también puedo extraer del `application.properties`.
+En pgAdmin se configurará una  nueva conexión a PostgreSQL con los valores 
+usados en el `application.properties` para que el microservicio de Cursos se conecte a PostgreSQL.
 
 | Name                 | guzman-postgres14 |
 |----------------------|-------------------|
@@ -72,7 +73,7 @@ La nueva conexión a PostgreSQL a configurar tendrá estos valores, que también
 | Maintenance database | msvc_cursos       | 
 | Username             | postgres          | 
 
-El valor de IP de **Host name/address** lo obtengo inspeccionando el contenedor de la BBDD PostgreSQL.
+El valor de IP de **Host name/address** se obtiene inspeccionando el contenedor de la BBDD PostgreSQL.
 ```powershell
-docker inspet guzman-postgres14
+docker inspect guzman-postgres14
 ```

@@ -22,12 +22,20 @@ public class CursoUsuario {
         this.id = id;
     }
 
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CursoUsuario that = (CursoUsuario) o;
-        return id.equals(that.id);
+        return this.usuarioId != null && this.usuarioId.equals(that.usuarioId);
     }
 
     @Override

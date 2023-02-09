@@ -1,5 +1,7 @@
 package org.rveiga.springcloud.msvc.cursos.controllers;
 
+import feign.FeignException;
+import org.rveiga.springcloud.msvc.cursos.models.Usuario;
 import org.rveiga.springcloud.msvc.cursos.models.entity.Curso;
 import org.rveiga.springcloud.msvc.cursos.services.CursoService;
 import org.springframework.http.HttpStatus;
@@ -8,10 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class 	CursoController {
@@ -69,6 +68,60 @@ public class 	CursoController {
 		if(cursoAlmacenado.isPresent()) {
 			service.eliminar(id);
 			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@PutMapping("/asignar-usuario/{cursoId}")
+	public ResponseEntity<?> asignarUsuario(@RequestBody Usuario usuario, @PathVariable Long cursoId) {
+		Optional<Usuario> asignado = null;
+		try {
+			asignado = service.asignarUsuario(usuario, cursoId);
+		} catch (FeignException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(
+					"mensaje",
+					"No existe el usuario por el ID o error en la comunicación: " + e.getMessage()
+				));
+		}
+
+		if (asignado.isPresent()) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(asignado.get());
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@PostMapping("/crear-usuario/{cursoId}")
+	public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario, @PathVariable Long cursoId) {
+		Optional<Usuario> creado = null;
+		try {
+			creado = service.crearUsuario(usuario, cursoId);
+		} catch (FeignException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(
+					"mensaje",
+					"No se pudo crear el usuario o error en la comunicación: " + e.getMessage()
+				));
+		}
+
+		if (creado.isPresent()) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(creado.get());
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@DeleteMapping("/eliminar-usuario/{cursoId}")
+	public ResponseEntity<?> eliminarUsuario(@RequestBody Usuario usuario, @PathVariable Long cursoId) {
+		Optional<Usuario> eliminado = null;
+		try {
+			eliminado = service.eliminarUsuario(usuario, cursoId);
+		} catch (FeignException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(
+					"mensaje",
+					"No existe el usuario por el ID o error en la comunicación: " + e.getMessage()
+				));
+		}
+
+		if (eliminado.isPresent()) {
+			return ResponseEntity.status(HttpStatus.OK).body(eliminado.get());
 		}
 		return ResponseEntity.notFound().build();
 	}

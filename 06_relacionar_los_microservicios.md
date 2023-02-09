@@ -21,33 +21,43 @@ Quiero relacionar los IDs de Curso y Usuario.
 En el proyecto `msvc-cursos` creo la entidad intermedia `CursoUsuario`. <br/> 
 Es decir, los usuarios apuntados a un curso. 
 
+Prestemos atención al `equals(...)` sobrescrito. <br/> 
+Iguala el objeto `CursoUsuario` exclusivamente por la propiedad ID de alumno, ninguna más. <br/> 
+Permite asignar y desasignar usuarios a cursos fácilmente (se almacenan en una lista de `Curso`), 
+pero tiene como contra que un alumno sólo puede estar asignado a un único curso.  <br/>
+Tendré que darle una vuelta para que un alumno pueda estar en varios cursos.
+
 ```java
 import javax.persistence.*;
 
 @Entity
 @Table(name = "cursos_usuarios")
 public class CursoUsuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "usuario_id", unique = true)
     private Long usuarioId;
 
-    public Long getId() {
-        return id;
-    }
+    ... getters & setters ...
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CursoUsuario that = (CursoUsuario) o;
+        return this.usuarioId != null && this.usuarioId.equals(that.usuarioId);
     }
 }
 ```
 
-Pero si en la nueva entidad tengo sólo el ID de usuario... ¿dónde está el ID de curso?
+Pero si en la nueva entidad `CursoUsuario` tengo sólo dos campos: 
+- el ID de la entidad relación usuario-curso
+- el ID de usuario
+- entonces... ¿dónde está el ID de curso?
 
-Creo un campo `@OneToMany List<CursoUsuario>` en la entidad `Curso`. <br/>
-Servirá de **foreign key** al marcarlo con `@JoinColumn(name = "curso_id")`.
+Se crea un campo `@OneToMany List<CursoUsuario>` en la entidad `Curso`. <br/>
+Se marca con `@JoinColumn(name = "curso_id")` para que sirva de **foreign key** .
 
 ```java
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.LAZY)

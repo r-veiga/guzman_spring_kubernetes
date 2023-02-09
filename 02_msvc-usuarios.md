@@ -145,7 +145,7 @@ public ResponseEntity<?> eliminar(@PathVariable Long id) {
     return ResponseEntity.notFound().build();
 }
 ```
-(2) Troubleshoot en la URL de conexión a MySQL
+### (2) Troubleshoot en la URL de conexión a MySQL
 
 Andrés explica que suele haber problemas al no indicar dos parámetros en la cadena de conexión a MySQL en el fichero `application.properties`. <br>
 Esto ocurría en versiones previas del driver de MySQL, y mejor tenerlo en cuenta por si acaso surge.

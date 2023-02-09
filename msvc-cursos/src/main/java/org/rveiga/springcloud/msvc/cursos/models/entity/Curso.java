@@ -19,6 +19,7 @@ public class Curso {
 	private String nombre;
 
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.LAZY)
+	@JoinColumn(name="curso_id")
 	private List<CursoUsuario> cursoUsuarios;
 
 	@Transient
@@ -26,6 +27,7 @@ public class Curso {
 
 	public Curso() {
 		cursoUsuarios = new ArrayList<>();
+		usuarios = new ArrayList<>();
 	}
 
 	public Long getId() {
@@ -50,6 +52,14 @@ public class Curso {
 
 	public void setCursoUsuarios(List<CursoUsuario> cursoUsuarios) {
 		this.cursoUsuarios = cursoUsuarios;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	public void addCursoUsuario(CursoUsuario cursoUsuario) {
