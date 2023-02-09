@@ -1,5 +1,6 @@
 package org.rveiga.springcloud.msvc.usuario.msvcusuarios.services;
 
+import org.rveiga.springcloud.msvc.usuario.msvcusuarios.clients.CursoClienteRest;
 import org.rveiga.springcloud.msvc.usuario.msvcusuarios.models.entity.Usuario;
 import org.rveiga.springcloud.msvc.usuario.msvcusuarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,13 @@ import java.util.Optional;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-	@Autowired
-	private UsuarioRepository repository;
+	private final UsuarioRepository repository;
+	private final CursoClienteRest httpClient;
+
+	public UsuarioServiceImpl(UsuarioRepository repository, CursoClienteRest httpClient) {
+		this.repository = repository;
+		this.httpClient = httpClient;
+	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -37,6 +43,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public void eliminar(Long id) {
 		repository.deleteById(id);
+		httpClient.eliminarCursoUsuarioPorId(id);
 	}
 
 	@Override
