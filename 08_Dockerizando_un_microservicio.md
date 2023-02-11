@@ -70,7 +70,7 @@ El punto de entrada será la ejecución del `jar` con el comando `java`. <br/>
 El puerto 8001 expuesto en el Dockerfile es meramente informativo, 
 en realidad se determina el puerto expuesto al crear el contenedor.
 
-```docker
+```shell
 FROM openjdk:17.0.2
 WORKDIR /app
 COPY ./target/msvc-usuarios-0.0.1-SNAPSHOT.jar .

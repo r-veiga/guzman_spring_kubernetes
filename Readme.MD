@@ -11,3 +11,4 @@ Voy haciendo las prácticas sugeridas a medida que sigo el curso.
 6. Sobre cómo [relaciono los dos microservicios](06_relacionar_los_microservicios.md)
 7. Sobre cómo [crear un cliente HTTP con Spring Cloud Feign](07_cliente_http_SpringCloudFeign.md)
 8. Sobre cómo [dockerizar una aplicación Spring Boot (microservicio Usuarios)](08_Dockerizando_un_microservicio.md)
+9. Sobre cómo [optimizar el Dockerfile](09_optimizar_el_Dockerfile.md)
