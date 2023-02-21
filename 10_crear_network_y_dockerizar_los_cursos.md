@@ -56,8 +56,9 @@ ENTRYPOINT ["java", "-jar", "msvc-cursos-0.0.1-SNAPSHOT.jar"]
 ```
 Los comandos apropiados para este Dockerfile son
 ```powershell
-cd <path/microservicio_usuarios>
+cd <path/microservicio_cursos>
 .\mvnw clean
+cd ..
 docker build -t micro-cursos:latest . -f .\msvc-cursos\Dockerfile
 docker run --name container-cursos -p 15002:8002  micro-cursos:latest
 ```
