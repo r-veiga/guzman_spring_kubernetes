@@ -158,3 +158,6 @@ Idealmente habría que añadir `useSSL=false` con propósitos de desarrollo/test
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3307/msvc_usuarios?serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=false
 ```
+
+
+[Siguiente](03_docker.md)
